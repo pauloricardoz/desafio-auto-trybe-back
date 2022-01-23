@@ -7,6 +7,7 @@
     "test": "jest --runInBand",
     "start": "node index.js",
     "test:mocha": "nyc --all --include models --include services --include controllers mocha test/unit/*.js --exit",
+    "tdd": "mocha ./tests/**/*$NAME*.test.js --watch --recursive",
     "dev": "nodemon index.js"
   },
   "repository": {
