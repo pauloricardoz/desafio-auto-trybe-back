@@ -9,4 +9,4 @@ const getConnection = async (dbName) => {
   return connection.db(dbName);
 };
 
-module.exports = getConnection;
+module.exports = { getConnection };
