@@ -4,8 +4,9 @@
   "description": "Backend auto data",
   "main": "index.js",
   "scripts": {
-    "test": "npm test",
+    "test": "jest --runInBand",
     "start": "node index.js",
+    "test:mocha": "nyc --all --include models --include services --include controllers mocha test/unit/*.js --exit",
     "dev": "nodemon index.js"
   },
   "repository": {
@@ -25,10 +26,15 @@
   },
   "homepage": "https://github.com/pauloricardoz/desafio-auto-trybe-back#readme",
   "dependencies": {
+    "@types/jest": "^27.4.0",
+    "eslint-config-trybe-backend": "^1.0.4",
     "express": "^4.17.2",
+    "jest": "^27.4.7",
     "mongodb": "^4.3.1"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.4",
     "nodemon": "^2.0.15"
   }
 }
