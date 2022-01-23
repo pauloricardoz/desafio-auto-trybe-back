@@ -1,0 +1,34 @@
+{
+  "name": "auto-data",
+  "version": "1.0.0",
+  "description": "Backend auto data",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pauloricardoz/desafio-auto-trybe-back.git"
+  },
+  "keywords": [
+    "backend",
+    "job",
+    "interview",
+    "tdd"
+  ],
+  "author": "Zambelli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pauloricardoz/desafio-auto-trybe-back/issues"
+  },
+  "homepage": "https://github.com/pauloricardoz/desafio-auto-trybe-back#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "mongodb": "^4.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
