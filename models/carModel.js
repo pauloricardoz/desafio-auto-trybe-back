@@ -18,6 +18,7 @@ const editCar = async (car) => {
 };
 const deleteCar = async (id) => connection.getConnection(dbName)
   .then((db) => db.collection(dbCollection).deleteOne({ _id: id }));
+
 const getByProperties = async (properties) => connection.getConnection(dbName)
 .then((db) => db.collection(dbCollection).find(properties))
 .then((result) => result.toArray());
