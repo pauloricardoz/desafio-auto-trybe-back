@@ -109,25 +109,28 @@ describe('Car services', function () {
       expect(carsByPropertiesError).to.have.keys(['isError']);
       expect(carsByPropertiesError.isError).to.be.eq(true);
     });
-    function wrongTypes(nameProperty, value) {
+    function wrongTypes(nameProperty, value, serviceFunc) {
       return async function () {
-        const carsByPropertiesError = await carService.getByProperties({ [nameProperty]: value });
+        const carsByPropertiesError = await carService[serviceFunc]({ [nameProperty]: value });
+
         expect(carsByPropertiesError).to.be.an('object');
         expect(carsByPropertiesError).to.have.keys(['isError']);
         expect(carsByPropertiesError.isError).to.be.eq(true);
       };
     }
     describe('GetByProperties check parameters', function () {
-      it('Type wrong data type', wrongTypes('type', 1));
-      it('Type rigth data type, but empty string', wrongTypes('type', ''));
-      it('brand wrong data type', wrongTypes('brand', 1));
-      it('Model wrong data type', wrongTypes('model', 1));
-      it('Version wrong data type', wrongTypes('version', 1));
-      it('Year wrong data type', wrongTypes('year', '1988'));
-      it('mileage wrong data type', wrongTypes('mileage', '10'));
-      it('transmissionType wrong data type', wrongTypes('transmissionType', 2));
-      it('sellPrice wrong data type', wrongTypes('sellPrice', '10000'));
-      it('dateReference wrong data type', wrongTypes('dateReference', new Date()));
+      it('Type wrong data type', wrongTypes('type', 1, 'getByProperties'));
+      it('Type rigth data type, but empty string', wrongTypes('type', '', 'getByProperties'));
+      it('brand wrong data type', wrongTypes('brand', 1, 'getByProperties'));
+      it('Model wrong data type', wrongTypes('model', 1, 'getByProperties'));
+      it('Version wrong data type', wrongTypes('version', 1, 'getByProperties'));
+      it('Year wrong data type', wrongTypes('year', '1988', 'getByProperties'));
+      it('mileage wrong data type', wrongTypes('mileage', '10', 'getByProperties'));
+      it('transmissionType wrong data type', wrongTypes('transmissionType', 2, 'getByProperties'));
+      it('sellPrice wrong data type', wrongTypes('sellPrice', '10000', 'getByProperties'));
+      it('dateReference wrong data type', wrongTypes('dateReference', new Date(), 'getByProperties'));
+    });
+  });
     });
   });
 });
