@@ -134,6 +134,5 @@ describe('Car model tests', function () {
     const data = await connection.getConnection('test')
       .then((e) => e.collection('colec1').find())
       .then((e) => e.toArray());
-    console.log(data);
   });
 });
