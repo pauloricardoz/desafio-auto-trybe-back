@@ -1,4 +1,5 @@
 const carModel = require('../models/carModel');
+const { isInvalidVehicleProperties, haveAllProperties } = require('./utils');
 
 const getAll = async () => carModel.getAll();
  
