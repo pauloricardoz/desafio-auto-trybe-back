@@ -139,6 +139,28 @@ describe('Car services', function () {
       expect(insertedCar).to.be.an('object');
       expect(insertedCar).to.have.keys(['id', ...Object.keys({ ...testData.newCar })]);
     });
+    function wrongTypesForInsertion(nameProperty, value) {
+      return async function () {
+        await deleteAllData(dbName, dbCollection);
+
+        const carsByPropertiesError = await carService.insertCar({ [nameProperty]: value });
+
+        expect(carsByPropertiesError).to.be.an('object');
+        expect(carsByPropertiesError).to.have.keys(['isError']);
+        expect(carsByPropertiesError.isError).to.be.eq(true);
+      };
+    }
+    describe('Insertion check parameters', function () {
+      it('Type wrong data type', wrongTypesForInsertion('type', 1));
+      it('Type rigth data type, but empty string', wrongTypesForInsertion('type', ''));
+      it('brand wrong data type', wrongTypesForInsertion('brand', 1));
+      it('Model wrong data type', wrongTypesForInsertion('model', 1));
+      it('Version wrong data type', wrongTypesForInsertion('version', 1));
+      it('Year wrong data type', wrongTypesForInsertion('year', '1988'));
+      it('mileage wrong data type', wrongTypesForInsertion('mileage', '10'));
+      it('transmissionType wrong data type', wrongTypesForInsertion('transmissionType', 2));
+      it('sellPrice wrong data type', wrongTypesForInsertion('sellPrice', '10000'));
+      it('dateReference wrong data type', wrongTypesForInsertion('dateReference', new Date()));
     });
   });
 });
