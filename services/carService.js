@@ -3,7 +3,14 @@ const { isInvalidVehicleProperties, haveAllProperties } = require('./utils');
 
 const getAll = async () => carModel.getAll();
  
-const insertCar = async () => null;
+const insertCar = async (car) => {
+  if (isInvalidVehicleProperties(car)) {
+    return { isError: true };
+  }
+  if (!haveAllProperties(car)) return { isError: true };
+  const insertedCar = await carModel.insertCar({ ...car });
+  return { ...car, id: insertedCar.insertedId };
+};
  
 const editCar = async () => null;
  
