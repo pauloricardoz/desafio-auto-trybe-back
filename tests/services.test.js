@@ -55,6 +55,48 @@ describe('Car services', function () {
       expect(carsByProperties).to.be.an('array');
       expect(carsByProperties).to.be.eql([]);
     });
+      it('brand', async function () {
+        const carsByProperties = await carService.getByProperties({ brand: 'fiat' });
+        expect(carsByProperties).to.be.an('array');
+        expect(carsByProperties).to.be.eql([]);
+      });
+      it('model', async function () {
+        const carsByProperties = await carService.getByProperties({ model: 'palio' });
+        expect(carsByProperties).to.be.an('array');
+        expect(carsByProperties).to.be.eql([]);
+      });
+      it('version', async function () {
+        const carsByProperties = await carService.getByProperties({ version: '1.0' });
+        expect(carsByProperties).to.be.an('array');
+        expect(carsByProperties).to.be.eql([]);
+      });
+      it('year', async function () {
+        const carsByProperties = await carService.getByProperties({ year: 1988 });
+        expect(carsByProperties).to.be.an('array');
+        expect(carsByProperties).to.be.eql([]);
+      });
+      it('mileage', async function () {
+        const carsByProperties = await carService.getByProperties({ mileage: 10 });
+        expect(carsByProperties).to.be.an('array');
+        expect(carsByProperties).to.be.eql([]);
+      });
+      it('transmissionType', async function () {
+        const carsByProperties = await carService
+          .getByProperties({ transmissionType: 'automático' });
+        expect(carsByProperties).to.be.an('array');
+        expect(carsByProperties).to.be.eql([]); 
+      });
+      it('sellPrice', async function () {
+        const carsByProperties = await carService.getByProperties({ sellPrice: 10000 });
+        expect(carsByProperties).to.be.an('array');
+        expect(carsByProperties).to.be.eql([]);
+      });
+      it('dateReference', async function () {
+        const carsByProperties = await carService.getByProperties({ dateReference: '12-2012' });
+        expect(carsByProperties).to.be.an('array');
+        expect(carsByProperties).to.be.eql([]);
+      });
+    });
     it('GetByProperties without parameters', async function () {
       const carsByPropertiesError = await carService.getByProperties({});
       expect(carsByPropertiesError).to.be.an('object');
