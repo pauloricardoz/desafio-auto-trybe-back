@@ -27,6 +27,9 @@ describe('Car services', function () {
     sinon.stub(connection, 'getConnection').resolves(connectionStubed.getConnection());
     sinon.stub(carModel, 'getAll').resolves([]);
   });
+  beforeEach(async function () {
+    await deleteAllData(dbName, dbCollection);
+  });
 
   after(async function () {
     sinon.reset();
