@@ -18,7 +18,7 @@ describe('Car model tests', function () {
   });
 
   after(async function () {
-    sinon.reset();
+    sinon.restore();
   });
 
   describe('Checking basic function', function () {
@@ -88,7 +88,7 @@ describe('Car model tests', function () {
       expect(id).to.be.eql(car.insertedId);
 
       const editedCar = await carModel.editCar({ 
-        _id: id, ...newCar, Version: '1.3', 
+        id, ...newCar, Version: '1.3', 
       });
       expect(editedCar).to.be.an('object');
       expect(editedCar.acknowledged).to.be.eq(true);
@@ -126,7 +126,7 @@ describe('Car model tests', function () {
     });
   });
 
-  it.skip('Example', async function () {
+  it('Example', async function () {
     await connection.getConnection('test')
       .then((e) => e.collection('colec1').insertOne({ name: 'Zambs' }));
     await connection.getConnection('test')

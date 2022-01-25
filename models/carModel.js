@@ -12,7 +12,7 @@ const insertCar = async (car) =>
     .then((db) => db.collection(dbCollection).insertOne({ ...car }));
 
 const editCar = async (car) => {
-  const { _id: id } = car;
+  const { id } = car;
   return connection.getConnection(dbName)
     .then((db) => db.collection(dbCollection).updateOne({ _id: id }, { $set: { ...car } }));
 };
