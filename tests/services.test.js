@@ -161,6 +161,18 @@ describe('Car services', function () {
       it('transmissionType wrong data type', wrongTypesForInsertion('transmissionType', 2));
       it('sellPrice wrong data type', wrongTypesForInsertion('sellPrice', '10000'));
       it('dateReference wrong data type', wrongTypesForInsertion('dateReference', new Date()));
+      it('Missing properties', async function () {
+        await deleteAllData(dbName, dbCollection);
+
+        const missingPropertyCar = { ...testData.newCar };
+        delete missingPropertyCar.brand;
+
+        const carsByPropertiesError1 = await carService.insertCar(missingPropertyCar, true);
+
+        expect(carsByPropertiesError1).to.be.an('object');
+        expect(carsByPropertiesError1).to.have.keys(['isError']);
+        expect(carsByPropertiesError1.isError).to.be.eq(true);
+      });
     });
   });
 });
