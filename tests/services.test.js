@@ -18,8 +18,8 @@ async function deleteAllData(myDbName, myDbCollection) {
 }
 
 async function insertOneData(myDbName, myDbCollection) {
-  await connection.getConnection(myDbName)
-        .then((db) => db.collection(myDbCollection).insertOne(testData.newCar));
+  return connection.getConnection(myDbName)
+        .then((db) => db.collection(myDbCollection).insertOne({ ...testData.newCar }));
 }
 
 describe('Car services', function () {
@@ -50,11 +50,12 @@ describe('Car services', function () {
       expect(allCars).to.be.an('array');
       expect(allCars).to.be.eql([]);
     });
-    it('GetByProperties working correctly', async function () {
-      const carsByProperties = await carService.getByProperties({ type: 'carro' });
-      expect(carsByProperties).to.be.an('array');
-      expect(carsByProperties).to.be.eql([]);
-    });
+    describe('GetByProperties working correctly', function () {
+      it('Type', async function () {
+        const carsByProperties = await carService.getByProperties({ type: 'carro' });
+        expect(carsByProperties).to.be.an('array');
+        expect(carsByProperties).to.be.eql([]);
+      });
       it('brand', async function () {
         const carsByProperties = await carService.getByProperties({ brand: 'fiat' });
         expect(carsByProperties).to.be.an('array');
