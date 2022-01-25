@@ -32,7 +32,7 @@ describe('Car services', function () {
   });
 
   after(async function () {
-    sinon.reset();
+    sinon.restore();
   });
 
   it('Basic CRUD function for services', async function () {
