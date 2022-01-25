@@ -131,6 +131,14 @@ describe('Car services', function () {
       it('dateReference wrong data type', wrongTypes('dateReference', new Date(), 'getByProperties'));
     });
   });
+  describe('InsertFunction', function () {
+    it('Sucess insertion', async function () {
+      await deleteAllData(dbName, dbCollection);
+
+      const insertedCar = await carService.insertCar({ ...testData.newCar }, true);
+      expect(insertedCar).to.be.an('object');
+      expect(insertedCar).to.have.keys(['id', ...Object.keys({ ...testData.newCar })]);
+    });
     });
   });
 });
