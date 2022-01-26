@@ -3,9 +3,9 @@ const { MongoMemoryServer } = require('mongodb-memory-server');
 
 let connection = null;
 // const dbUrl = 'mongodb://localhost:27017';
-
+let mongoServer;
 const getConnection = async (dbName) => {
-  const mongoServer = await MongoMemoryServer.create();
+  mongoServer = await MongoMemoryServer.create();
   mongoServer.start();
   const dbUrl = mongoServer.getUri();
   connection = connection || await new mongo.MongoClient(dbUrl, {
@@ -15,4 +15,9 @@ const getConnection = async (dbName) => {
   return connection.db(dbName);
 };
 
-module.exports = { getConnection };
+const closeConnection = () => {
+  mongoServer.stop();
+  connection = null;
+};
+
+module.exports = { getConnection, closeConnection };

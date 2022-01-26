@@ -33,6 +33,7 @@ describe('Car services', function () {
 
   after(async function () {
     sinon.restore();
+    connectionStubed.closeConnection();
   });
 
   it('Basic CRUD function for services', async function () {
