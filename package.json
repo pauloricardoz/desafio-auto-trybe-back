@@ -8,7 +8,7 @@
     "start": "node index.js",
     "test:mocha": "nyc --all --include models --include services --include controllers mocha test/unit/*.js --exit",
     "tdd": "mocha ./tests/**/*$NAME*.test.js --watch --recursive --timeout 10000",
-    "dev": "nodemon index.js"
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
   "homepage": "https://github.com/pauloricardoz/desafio-auto-trybe-back#readme",
   "dependencies": {
     "@types/jest": "^27.4.0",
+    "dotenv": "^14.3.2",
     "eslint-config-trybe-backend": "^1.0.4",
     "express": "^4.17.2",
     "jest": "^27.4.7",
