@@ -52,17 +52,20 @@ Uma visualização será implementada para dar visibilidade sobre a cobertura de
 
 ## Contatos
 
-### Paulo Ricardo Zambelli (Zambs)
+<div style="display: flex; align-items: center; justify-content: space-between;">
+  <div>
+    <h2> Paulo Ricardo Zambelli (Zambs) </h2>
+  <div style="display: flex; align-items: center;">
+    <img src="./images/linkedIn_logo.jpg" alt="LinkedIn" style="width:20px;"/>  /in/paulo-ricardo-zambelli-taveira 
+  </div>
+  <br/>
+  <div style="display: flex;align-items: center;">
+    <img src="./images/github_logo.png" alt="LinkedIn" style="width:20px;"/> https://github.com/pauloricardoz
+  </div>
+  <br/>
+  Email: trybe.przt@gmail.com
+  </div>
+    <img src="./images/Paulo Ricardo Zambelli Taveira0003.jpg" alt="LinkedIn" style="width:100px;"/> 
+  </div>
 <br/>
 
-<div style="display: flex; align-items: center;">
-  <img src="./images/linkedIn_logo.jpg" alt="LinkedIn" style="width:20px;"/>  /in/paulo-ricardo-zambelli-taveira 
-</div>
-<br/>
-<div style="display: flex;align-items: center;">
-  <img src="./images/github_logo.png" alt="LinkedIn" style="width:20px;"/> https://github.com/pauloricardoz
-</div>
-
-<br/>
-
-Email: trybe.przt@gmail.com
