@@ -19,6 +19,7 @@ describe('Car model tests', function () {
 
   after(async function () {
     sinon.restore();
+    connectionStubed.closeConnection();
   });
 
   describe('Checking basic function', function () {
