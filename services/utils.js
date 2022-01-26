@@ -23,13 +23,13 @@ const isStringEmpty = (car) => Object.entries(car)
     .some(([_key, value]) => value.length === 0);
 
 const isInvalidVehicleProperties = (car) => {
-  if (isNotAnObject(car)) { return true; }
-  if (isAnEmptyObject(car)) { return true; }
-  if (isPropertiesNotRightType(car)) { return true; }
-  if (isStringEmpty(car)) { return true; }
+  if (isNotAnObject(car)) { return { message: 'Não é um objeto' }; }
+  if (isAnEmptyObject(car)) { return { message: 'É um objeto vazio' }; }
+  if (isPropertiesNotRightType(car)) { return { message: 'Propriedade não é do tipo correto' }; }
+  if (isStringEmpty(car)) { return { message: 'String vazia' }; }
   return false;
 };
 
 const haveAllProperties = (car) => Object.keys(isRightTypes).every((property) => car[property]);
 
-module.exports = { isInvalidVehicleProperties, haveAllProperties };
+module.exports = { isInvalidVehicleProperties, haveAllProperties, isRightTypes };
