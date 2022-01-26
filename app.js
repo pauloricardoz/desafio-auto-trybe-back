@@ -8,6 +8,4 @@ app.use(express.json());
 
 app.use('/cars', carRouter);
 
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => console.log(`Auto-Trybe at port ${PORT}`));
+module.exports = app;
