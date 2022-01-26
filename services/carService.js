@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const carModel = require('../models/carModel');
 const { isInvalidVehicleProperties, haveAllProperties } = require('./utils');
 
@@ -20,7 +21,16 @@ const editCar = async (car) => {
   return { ...car, id: editedCar.insertedId };
 };
 
-const deleteCar = async () => null;
+const deleteCar = async (id) => {
+  if (!id || !ObjectId.isValid(id)) {
+    return { isError: true };
+  }
+  const deletedCar = await carModel.deleteCar(id);
+  if (!deletedCar.deletedCount) {
+    return { isError: true };
+  }
+  return { message: `Carro com id ${id} deletado` };
+};
 
 const getByProperties = async (car) => {
   if (isInvalidVehicleProperties(car)) {
