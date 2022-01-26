@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/car', carRouter);
+app.use('/cars', carRouter);
 
 const PORT = process.env.PORT || 3000;
 
