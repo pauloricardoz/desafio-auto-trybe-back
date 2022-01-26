@@ -12,6 +12,19 @@ const testData = require('./utils/testData');
 const dbName = 'carModel';
 const dbCollection = 'cars';
 
+const describeTest = {
+  TypeWrongDataType: 'Type wrong data type', 
+  TypeRigthDataTypeButEmptyString: 'Type rigth data type, but empty string', 
+  brandWrongDataType: 'brand wrong data type', 
+  ModelWrongDataType: 'Model wrong data type', 
+  VersionWrongDataType: 'Version wrong data type', 
+  YearWrongDataType: 'Year wrong data type', 
+  mileageWrongDataType: 'mileage wrong data type',
+  transmissionTypeWrongDataType: 'transmissionType wrong data type', 
+  sellPriceWrongDataType: 'sellPrice wrong data type', 
+  dateReferenceWrongDataType: 'dateReference wrong data type', 
+};
+
 async function deleteAllData(myDbName, myDbCollection) {
   await connection.getConnection(myDbName)
         .then((db) => db.collection(myDbCollection).deleteMany({}));
@@ -121,18 +134,21 @@ describe('Car services', function () {
       };
     }
     describe('GetByProperties check parameters', function () {
-      it('Type wrong data type', wrongTypes('type', 1, 'getByProperties'));
-      it('Type rigth data type, but empty string', wrongTypes('type', '', 'getByProperties'));
-      it('brand wrong data type', wrongTypes('brand', 1, 'getByProperties'));
-      it('Model wrong data type', wrongTypes('model', 1, 'getByProperties'));
-      it('Version wrong data type', wrongTypes('version', 1, 'getByProperties'));
-      it('Year wrong data type', wrongTypes('year', '1988', 'getByProperties'));
-      it('mileage wrong data type', wrongTypes('mileage', '10', 'getByProperties'));
-      it('transmissionType wrong data type', wrongTypes('transmissionType', 2, 'getByProperties'));
-      it('sellPrice wrong data type', wrongTypes('sellPrice', '10000', 'getByProperties'));
-      it('dateReference wrong data type', wrongTypes('dateReference', new Date(), 'getByProperties'));
+      it(describeTest.TypeWrongDataType, wrongTypes('type', 1, 'getByProperties'));
+      it(describeTest.TypeRigthDataTypeButEmptyString, wrongTypes('type', '', 'getByProperties'));
+      it(describeTest.brandWrongDataType, wrongTypes('brand', 1, 'getByProperties'));
+      it(describeTest.ModelWrongDataType, wrongTypes('model', 1, 'getByProperties'));
+      it(describeTest.VersionWrongDataType, wrongTypes('version', 1, 'getByProperties'));
+      it(describeTest.YearWrongDataType, wrongTypes('year', '1988', 'getByProperties'));
+      it(describeTest.mileageWrongDataType, wrongTypes('mileage', '10', 'getByProperties'));
+      it(describeTest.transmissionTypeWrongDataType,
+        wrongTypes('transmissionType', 2, 'getByProperties'));
+      it(describeTest.sellPriceWrongDataType, wrongTypes('sellPrice', '10000', 'getByProperties'));
+      it(describeTest.dateReferenceWrongDataType,
+        wrongTypes('dateReference', new Date(), 'getByProperties'));
     });
   });
+
   describe('InsertFunction', function () {
     it('Sucess insertion', async function () {
       await deleteAllData(dbName, dbCollection);
@@ -153,16 +169,17 @@ describe('Car services', function () {
       };
     }
     describe('Insertion check parameters', function () {
-      it('Type wrong data type', wrongTypesForInsertion('type', 1));
-      it('Type rigth data type, but empty string', wrongTypesForInsertion('type', ''));
-      it('brand wrong data type', wrongTypesForInsertion('brand', 1));
-      it('Model wrong data type', wrongTypesForInsertion('model', 1));
-      it('Version wrong data type', wrongTypesForInsertion('version', 1));
-      it('Year wrong data type', wrongTypesForInsertion('year', '1988'));
-      it('mileage wrong data type', wrongTypesForInsertion('mileage', '10'));
-      it('transmissionType wrong data type', wrongTypesForInsertion('transmissionType', 2));
-      it('sellPrice wrong data type', wrongTypesForInsertion('sellPrice', '10000'));
-      it('dateReference wrong data type', wrongTypesForInsertion('dateReference', new Date()));
+      it(describeTest.TypeWrongDataType, wrongTypesForInsertion('type', 1));
+      it(describeTest.TypeRigthDataTypeButEmptyString, wrongTypesForInsertion('type', ''));
+      it(describeTest.brandWrongDataType, wrongTypesForInsertion('brand', 1));
+      it(describeTest.ModelWrongDataType, wrongTypesForInsertion('model', 1));
+      it(describeTest.VersionWrongDataType, wrongTypesForInsertion('version', 1));
+      it(describeTest.YearWrongDataType, wrongTypesForInsertion('year', '1988'));
+      it(describeTest.mileageWrongDataType, wrongTypesForInsertion('mileage', '10'));
+      it(describeTest.transmissionTypeWrongDataType, wrongTypesForInsertion('transmissionType', 2));
+      it(describeTest.sellPriceWrongDataType, wrongTypesForInsertion('sellPrice', '10000'));
+      it(describeTest.dateReferenceWrongDataType,
+        wrongTypesForInsertion('dateReference', new Date()));
       it('Missing properties', async function () {
         await deleteAllData(dbName, dbCollection);
 
@@ -175,6 +192,41 @@ describe('Car services', function () {
         expect(carsByPropertiesError1).to.have.keys(['isError']);
         expect(carsByPropertiesError1.isError).to.be.eq(true);
       });
+    });
+  });
+
+  describe('EditFunction', function () {
+    it('Sucess insertion', async function () {
+      await deleteAllData(dbName, dbCollection);
+      const addedCar = await insertOneData(dbName, dbCollection);
+      const editedCar = await carService
+        .editCar({ ...testData.editedCar, id: addedCar.insertedId });
+      expect(editedCar).to.be.an('object');
+      expect(editedCar).to.have.keys(['id', ...Object.keys({ ...testData.editedCar })]);
+    });
+    function wrongTypesForEdition(nameProperty, value) {
+      return async function () {
+        await deleteAllData(dbName, dbCollection);
+
+        const carsByPropertiesError = await carService.editCar({ [nameProperty]: value });
+
+        expect(carsByPropertiesError).to.be.an('object');
+        expect(carsByPropertiesError).to.have.keys(['isError']);
+        expect(carsByPropertiesError.isError).to.be.eq(true);
+      };
+    }
+    describe('Edition check parameters', function () {
+      it(describeTest.TypeWrongDataType, wrongTypesForEdition('type', 1));
+      it(describeTest.TypeRigthDataTypeButEmptyString, wrongTypesForEdition('type', ''));
+      it(describeTest.brandWrongDataType, wrongTypesForEdition('brand', 1));
+      it(describeTest.ModelWrongDataType, wrongTypesForEdition('model', 1));
+      it(describeTest.VersionWrongDataType, wrongTypesForEdition('version', 1));
+      it(describeTest.YearWrongDataType, wrongTypesForEdition('year', '1988'));
+      it(describeTest.mileageWrongDataType, wrongTypesForEdition('mileage', '10'));
+      it(describeTest.transmissionTypeWrongDataType, wrongTypesForEdition('transmissionType', 2));
+      it(describeTest.sellPriceWrongDataType, wrongTypesForEdition('sellPrice', '10000'));
+      it(describeTest.dateReferenceWrongDataType,
+        wrongTypesForEdition('dateReference', new Date()));
     });
   });
 });
