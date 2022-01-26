@@ -12,7 +12,13 @@ const insertCar = async (car) => {
   return { ...car, id: insertedCar.insertedId };
 };
 
-const editCar = async () => null;
+const editCar = async (car) => {
+  if (isInvalidVehicleProperties(car)) {
+    return { isError: true };
+  }
+  const editedCar = await carModel.editCar(car);
+  return { ...car, id: editedCar.insertedId };
+};
 
 const deleteCar = async () => null;
 
