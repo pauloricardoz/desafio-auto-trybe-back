@@ -15,7 +15,8 @@ const isNotAnObject = (car) => !(car instanceof Object);
 const isAnEmptyObject = (car) => !(Object.keys(car).length);
 
 const isPropertiesNotRightType = (car) => !Object.keys(car)
-  .every((property) => typeof car[property] === isRightTypes[property]);
+  .every((property) => (
+    property !== 'id' ? typeof car[property] === isRightTypes[property] : true));
 
 const isStringEmpty = (car) => Object.entries(car)
     .filter(([key]) => Object.keys(isRightTypes).includes(key) && isRightTypes[key] === 'string')
