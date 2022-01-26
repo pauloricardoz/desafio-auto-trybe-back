@@ -47,6 +47,14 @@ describe('Car services', function () {
     ]);
   });
   describe('GetFunctions', function () {
+    beforeEach(async function () {
+      await deleteAllData(dbName, dbCollection);
+    });
+  
+    after(async function () {
+      sinon.restore();
+      connectionStubed.closeConnection();
+    });
     it('GetAll working correctly', async function () {
       await deleteAllData(dbName, dbCollection);
       const allCars = await carService.getAll();

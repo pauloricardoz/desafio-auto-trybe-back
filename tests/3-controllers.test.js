@@ -5,8 +5,25 @@ const { ObjectId } = require('mongodb');
 const carController = require('../controllers/carController');
 const carService = require('../services/carService');
 const { newCar, editedCar } = require('./utils/testData');
+const { getConnection, closeConnection } = require('./utils/connectionMemory');
+
+const dbName = 'carModel';
+const dbCollection = 'cars';
+
+async function deleteAllData(myDbName, myDbCollection) {
+  await getConnection(myDbName)
+        .then((db) => db.collection(myDbCollection).deleteMany({}));
+}
 
 describe('Car controller', function () {
+  after(async function () {
+    await deleteAllData(dbName, dbCollection);
+  });
+
+  after(async function () {
+    sinon.restore();
+    closeConnection();
+  });
   describe('geral', function () {
     const response = {};
     function basicInit() {
