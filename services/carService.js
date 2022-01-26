@@ -14,7 +14,8 @@ const insertCar = async (car) => {
 };
 
 const editCar = async (car) => {
-  if (isInvalidVehicleProperties(car)) {
+  const allPropertiesValid = isInvalidVehicleProperties(car);
+  if (allPropertiesValid) {
     return { isError: true };
   }
   const editedCar = await carModel.editCar(car);
@@ -33,7 +34,10 @@ const deleteCar = async (id) => {
 };
 
 const getByProperties = async (car) => {
-  if (isInvalidVehicleProperties(car)) {
+  const allPropertiesValid = isInvalidVehicleProperties(car);
+  console.log(allPropertiesValid);
+  console.log('allPropertiesValid', allPropertiesValid, car);
+  if (allPropertiesValid) {
     return { isError: true };
   }
   return carModel.getByProperties(car);

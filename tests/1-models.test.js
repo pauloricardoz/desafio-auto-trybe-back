@@ -45,11 +45,11 @@ describe('Car model tests', function () {
       let allCars = await carModel.getAll();
       expect(allCars).to.be.length(0);
       const newCar = {
-        Type: 'carro',
+        type: 'carro',
         brand: 'fiat',
-        Model: 'palio',
-        Version: '1.0',
-        Year: 2012,
+        model: 'palio',
+        version: '1.0',
+        year: 2012,
         mileage: 10,
         transmissionType: 'manual',
         sellPrice: 20000,
@@ -60,7 +60,7 @@ describe('Car model tests', function () {
       expect(car.acknowledged).to.be.eq(true);
       allCars = await carModel.getAll();
       expect(allCars).to.be.length(1);
-      const { _id: id } = allCars[0];
+      const { id } = allCars[0];
       expect(id).to.be.eql(car.insertedId);
     });
 
@@ -85,7 +85,7 @@ describe('Car model tests', function () {
       expect(car.acknowledged).to.be.eq(true);
       allCars = await carModel.getAll();
       expect(allCars).to.be.length(1);
-      const { _id: id } = allCars[0];
+      const { id } = allCars[0];
       expect(id).to.be.eql(car.insertedId);
 
       const editedCar = await carModel.editCar({ 
@@ -117,7 +117,7 @@ describe('Car model tests', function () {
       expect(car.acknowledged).to.be.eq(true);
       allCars = await carModel.getAll();
       expect(allCars).to.be.length(1);
-      const { _id: id } = allCars[0];
+      const { id } = allCars[0];
       expect(id).to.be.eql(car.insertedId);
 
       const deletedCar = await carModel.deleteCar(id);

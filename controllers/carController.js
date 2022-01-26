@@ -30,10 +30,23 @@ const deleteCar = async (req, res) => {
   return res.status(202).json(car);
 };
 
+const convertTypes = ([proper, value]) => {
+  if (['year', 'mileage', 'sellPrice'].includes(proper)) {
+    return [proper, Number(value)];
+  }
+    return [proper, value];
+  };
+const generateNewObjectFromArray = (acc, [proper, value]) => { 
+  acc[proper] = value; 
+  return acc;
+};
+
 const getByProperties = async (req, res) => {
   const { query } = req;
-  
-  const cars = await carService.getByProperties(query);
+  const adaptCar = Object.entries(query)
+    .map(convertTypes)
+    .reduce(generateNewObjectFromArray, {});
+  const cars = await carService.getByProperties(adaptCar);
   if (cars.isError) return res.status(422).json(cars);
 
   return res.status(200).json(cars);
