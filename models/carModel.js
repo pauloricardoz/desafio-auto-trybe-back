@@ -9,15 +9,16 @@ const getAll = async () => connection.getConnection(dbName)
 
 const insertCar = async (car) => 
   connection.getConnection(dbName)
-    .then((db) => db.collection(dbCollection).insertOne(car));
+    .then((db) => db.collection(dbCollection).insertOne({ ...car }));
 
 const editCar = async (car) => {
-  const { _id: id } = car;
+  const { id } = car;
   return connection.getConnection(dbName)
-    .then((db) => db.collection(dbCollection).updateOne({ _id: id }, { $set: car }));
+    .then((db) => db.collection(dbCollection).updateOne({ _id: id }, { $set: { ...car } }));
 };
 const deleteCar = async (id) => connection.getConnection(dbName)
   .then((db) => db.collection(dbCollection).deleteOne({ _id: id }));
+
 const getByProperties = async (properties) => connection.getConnection(dbName)
 .then((db) => db.collection(dbCollection).find(properties))
 .then((result) => result.toArray());
