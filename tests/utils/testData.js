@@ -21,4 +21,7 @@ module.exports = {
     sellPrice: 20000,
     dateReference: '10-2012',
   },
+  wrongCar1: {
+    cor: 'azul',
+  },
 };
