@@ -8,6 +8,7 @@ const connection = require('../models/connection');
 const connectionStubed = require('./utils/connectionMemory');
 
 const testData = require('./utils/testData');
+const { ObjectId } = require('mongodb');
 
 const dbName = 'carModel';
 const dbCollection = 'cars';
@@ -227,6 +228,46 @@ describe('Car services', function () {
       it(describeTest.sellPriceWrongDataType, wrongTypesForEdition('sellPrice', '10000'));
       it(describeTest.dateReferenceWrongDataType,
         wrongTypesForEdition('dateReference', new Date()));
+    });
+  });
+
+  describe('DeleteFunction', function () {
+    it('Sucess deletion', async function () {
+      await deleteAllData(dbName, dbCollection);
+      const addedCar = await insertOneData(dbName, dbCollection);
+
+      const editedCar = await carService.deleteCar(addedCar.insertedId);
+
+      expect(editedCar).to.be.an('object');
+      expect(editedCar).to.have.keys(['message']);
+    });
+    
+    describe('delete check parameters', function () {
+      it('Missing id', async function () {
+        await deleteAllData(dbName, dbCollection);
+
+        const editedCar = await carService.deleteCar();
+
+        expect(editedCar).to.be.an('object');
+        expect(editedCar).to.have.keys(['isError']);
+      });
+      it('wrong formart id', async function () {
+        await deleteAllData(dbName, dbCollection);
+
+        const editedCar = await carService.deleteCar('1');
+
+        expect(editedCar).to.be.an('object');
+        expect(editedCar).to.have.keys(['isError']);
+      });
+
+      it('Right id, but not exist in the bank', async function () {
+        await deleteAllData(dbName, dbCollection);
+
+        const editedCar = await carService.deleteCar(ObjectId.generate());
+
+        expect(editedCar).to.be.an('object');
+        expect(editedCar).to.have.keys(['isError']);
+      });
     });
   });
 });
