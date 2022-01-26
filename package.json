@@ -9,6 +9,7 @@
     "test:mocha": "nyc --all --include models --include services --include controllers mocha test/unit/*.js --exit",
     "tdd": "mocha ./tests/**/*$NAME*.test.js --watch --recursive --timeout 10000",
     "test:integration": "mocha ./test-integration/**/*$NAME*.test.js --watch --recursive --timeout 10000",
+    "dev:test:coverage:json": "nyc --all --reporter=json-summary mocha ./test*/**/*$NAME*.test.js --exit",
     "dev": "nodemon server.js"
   },
   "repository": {
@@ -43,6 +44,7 @@
     "mocha": "^9.1.4",
     "mongodb-memory-server": "^8.2.0",
     "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
     "sinon": "^12.0.1"
   }
 }
