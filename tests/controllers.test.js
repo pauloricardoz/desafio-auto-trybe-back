@@ -33,12 +33,12 @@ describe('Car controller', function () {
         response.status = sinon.stub().returns(response);
         response.json = sinon.stub().returns();
         id = ObjectId.generate();
-
         carService.getAll = sinon.stub().returns([{ ...newCar, id }]);
       });
       
       it('GetAll working correctly', async function () {
         const cars = await carController.getAll(request, response);
+
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith([{ ...newCar, id }])).to.be.equal(true);
       });
@@ -48,7 +48,6 @@ describe('Car controller', function () {
       const request = {};
       let returnService;
       let id;
-      
       beforeEach(function basicInit() {
         request.query = {};
         response.status = sinon.stub().returns(response);
@@ -66,7 +65,6 @@ describe('Car controller', function () {
         await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
-        
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
@@ -76,7 +74,6 @@ describe('Car controller', function () {
         await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
-        
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
@@ -86,7 +83,6 @@ describe('Car controller', function () {
         await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
-        
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
@@ -96,7 +92,6 @@ describe('Car controller', function () {
         await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
-        
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
@@ -106,7 +101,6 @@ describe('Car controller', function () {
         await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
-        
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
@@ -116,18 +110,15 @@ describe('Car controller', function () {
         await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
-        
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
       it('transmissionType', async function () {
         request.query = { transmissionType: 'automático' };
 
-        await carController
-          .getByProperties(request, response);
+        await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
-        
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
@@ -137,7 +128,6 @@ describe('Car controller', function () {
         await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
-        
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
@@ -147,7 +137,6 @@ describe('Car controller', function () {
         await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
-        
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
@@ -192,12 +181,12 @@ describe('Car controller', function () {
         request.body = { ...newCar, id };
         response.status = sinon.stub().returns(response);
         response.json = sinon.stub().returns();
-
         carService.insertCar = sinon.stub().returns({ ...newCar, id });
       });
       
       it('InsertCar working correctly', async function () {
         await carController.insertCar(request, response);
+
         expect(carService.insertCar.calledWith({ ...request.body }));
         expect(response.status.calledWith(201)).to.be.equal(true);
         expect(response.json.calledWith({ ...newCar, id })).to.be.equal(true);
@@ -244,12 +233,12 @@ describe('Car controller', function () {
         request.body = { ...editedCar, id };
         response.status = sinon.stub().returns(response);
         response.json = sinon.stub().returns();
-
         carService.editCar = sinon.stub().returns({ ...editedCar, id });
       });
       
       it('EditCar working correctly', async function () {
         await carController.editCar(request, response);
+
         expect(carService.editCar.calledWith({ ...request.body }));
         expect(response.status.calledWith(204)).to.be.equal(true);
         expect(response.json.calledWith({ ...editedCar, id })).to.be.equal(true);
@@ -296,12 +285,12 @@ describe('Car controller', function () {
         request.body = { id };
         response.status = sinon.stub().returns(response);
         response.json = sinon.stub().returns();
-
         carService.deleteCar = sinon.stub().returns({ message: `Carro com id ${id} deletado` });
       });
       
       it('DeleteCar working correctly', async function () {
         await carController.deleteCar(request, response);
+
         expect(carService.deleteCar.calledWith(id));
         expect(response.status.calledWith(202)).to.be.equal(true);
         expect(response.json.calledWith({ message: `Carro com id ${id} deletado` })).to.be.equal(true);
