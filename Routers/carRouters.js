@@ -1,10 +1,10 @@
 const { Router } = require('express');
 const { 
   getAll,
-    getByProperties,
-    insertCar,
-    editCar,
-    deleteCar,
+  getByProperties,
+  insertCar,
+  editCar,
+  deleteCar,
   } = require('../controllers/carController');
 
 const carRouter = Router();
