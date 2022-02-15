@@ -161,7 +161,8 @@ describe('Car services', function () {
         const carsByPropertiesError = await carService.insertCar({ [nameProperty]: value });
 
         expect(carsByPropertiesError).to.be.an('object');
-        expect(carsByPropertiesError).to.have.keys(['isError']);
+        expect(carsByPropertiesError).to.includes.keys(['isError']);
+        expect(carsByPropertiesError).to.includes.keys(['message']);
         expect(carsByPropertiesError.isError).to.be.eq(true);
       };
     }
@@ -186,7 +187,7 @@ describe('Car services', function () {
         const carsByPropertiesError1 = await carService.insertCar(missingPropertyCar, true);
 
         expect(carsByPropertiesError1).to.be.an('object');
-        expect(carsByPropertiesError1).to.have.keys(['isError']);
+        expect(carsByPropertiesError1).to.contains.keys(['isError', 'message']);
         expect(carsByPropertiesError1.isError).to.be.eq(true);
       });
     });

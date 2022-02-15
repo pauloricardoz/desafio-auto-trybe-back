@@ -1,3 +1,6 @@
 {
-  "extends": "trybe-backend"
+  "extends": "trybe-backend",
+  "rules": {
+    "mocha/no-setup-in-describe": "off"
+  }
 }
