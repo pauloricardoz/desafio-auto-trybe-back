@@ -16,7 +16,7 @@ async function deleteAllData(myDbName, myDbCollection) {
 }
 
 describe('Car controller', function () {
-  after(async function () {
+  before(async function () {
     await deleteAllData(dbName, dbCollection);
   });
 
@@ -66,7 +66,7 @@ describe('Car controller', function () {
       let returnService;
       let id;
       beforeEach(function basicInit() {
-        request.query = {};
+        request.body = {};
         response.status = sinon.stub().returns(response);
         response.json = sinon.stub().returns();
         id = ObjectId.generate();
@@ -77,83 +77,83 @@ describe('Car controller', function () {
         sinon.restore();
       });
       it('Type', async function () {
-        request.query = { type: 'carro' };
+        request.body = { type: 'carro' };
 
         await carController.getByProperties(request, response);
 
-        expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
+        expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
       it('brand', async function () {
-        request.query = { brand: 'fiat' };
+        request.body = { brand: 'fiat' };
         console.log(request);
         await carController.getByProperties(request, response);
 
-        expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
+        expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
       it('model', async function () {
-        request.query = { model: 'palio' };
+        request.body = { model: 'palio' };
 
         await carController.getByProperties(request, response);
 
-        expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
+        expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
       it('version', async function () {
-        request.query = { version: '1.0' };
+        request.body = { version: '1.0' };
 
         await carController.getByProperties(request, response);
 
-        expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
+        expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
       it('year', async function () {
-        request.query = { year: 1988 };
+        request.body = { year: 1988 };
 
         await carController.getByProperties(request, response);
 
-        expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
+        expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
       it('mileage', async function () {
-        request.query = { mileage: 10 };
+        request.body = { mileage: 10 };
 
         await carController.getByProperties(request, response);
 
-        expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
+        expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
       it('transmissionType', async function () {
-        request.query = { transmissionType: 'automático' };
+        request.body = { transmissionType: 'automático' };
 
         await carController.getByProperties(request, response);
 
-        expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
+        expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
       it('sellPrice', async function () {
-        request.query = { sellPrice: 10000 };
+        request.body = { sellPrice: 10000 };
 
         await carController.getByProperties(request, response);
 
-        expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
+        expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
       it('dateReference', async function () {
-        request.query = { dateReference: '12-2012' };
+        request.body = { dateReference: '12-2012' };
 
         await carController.getByProperties(request, response);
 
-        expect(carService.getByProperties.calledWith({ ...request.query })).to.be.equal(true);
+        expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
         expect(response.status.calledWith(200)).to.be.equal(true);
         expect(response.json.calledWith(returnService)).to.be.equal(true);
       });
@@ -161,7 +161,7 @@ describe('Car controller', function () {
 
     it('GetByProperties without parameter ', async function () {
         const response = { };
-        const request = { query: {} };
+        const request = { body: {} };
         response.status = sinon.stub().returns(response);
         response.json = sinon.stub().returns();
         const returnService = { isError: true };
@@ -175,7 +175,7 @@ describe('Car controller', function () {
     });
     it('GetByProperties with not allowed parameter', async function () {
       const response = { };
-      const request = { query: { color: 'vermelho' } };
+      const request = { body: { color: 'vermelho' } };
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
       const returnService = { isError: true };

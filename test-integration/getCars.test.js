@@ -15,12 +15,16 @@ const dbName = 'carModel';
 const dbCollection = 'cars';
 
 async function insertOneData(myDbName, myDbCollection) {
-  return connection.getConnection(myDbName)
-        .then((db) => db.collection(myDbCollection).insertOne({ ...testData.newCar }));
+  return connection
+    .getConnection(myDbName)
+    .then((db) =>
+      db.collection(myDbCollection).insertOne({ ...testData.newCar }),
+    );
 }
 async function deleteAllData(myDbName, myDbCollection) {
-  await connection.getConnection(myDbName)
-        .then((db) => db.collection(myDbCollection).deleteMany({}));
+  await connection
+    .getConnection(myDbName)
+    .then((db) => db.collection(myDbCollection).deleteMany({}));
 }
 
 async function cleanDescribe() {
@@ -36,7 +40,9 @@ describe('GetCarsFunctions', function () {
       let response;
 
       before(async function () {
-        sinon.stub(connection, 'getConnection').resolves(connectionStubed.getConnection());
+        sinon
+          .stub(connection, 'getConnection')
+          .resolves(connectionStubed.getConnection());
         await insertOneData(dbName, dbCollection);
         response = await chai.request(server).get('/cars');
       });
@@ -66,7 +72,8 @@ describe('GetCarsFunctions', function () {
           'mileage',
           'transmissionType',
           'sellPrice',
-          'dateReference']);
+          'dateReference',
+        ]);
       });
     });
 
@@ -75,9 +82,14 @@ describe('GetCarsFunctions', function () {
         let response;
 
         before(async function () {
-          sinon.stub(connection, 'getConnection').resolves(connectionStubed.getConnection());
+          sinon
+            .stub(connection, 'getConnection')
+            .resolves(connectionStubed.getConnection());
           await insertOneData(dbName, dbCollection);
-          response = await chai.request(server).get(`/cars/properties/?${key}=${value}`);
+          response = await chai
+            .request(server)
+            .post('/cars/properties')
+            .send({ [key]: value });
           console.log(key, value);
         });
 
@@ -106,7 +118,8 @@ describe('GetCarsFunctions', function () {
             'mileage',
             'transmissionType',
             'sellPrice',
-            'dateReference']);
+            'dateReference',
+          ]);
         });
       };
     }
@@ -121,9 +134,14 @@ describe('GetCarsFunctions', function () {
         let response;
 
         before(async function () {
-          sinon.stub(connection, 'getConnection').resolves(connectionStubed.getConnection());
+          sinon
+            .stub(connection, 'getConnection')
+            .resolves(connectionStubed.getConnection());
           await insertOneData(dbName, dbCollection);
-          response = await chai.request(server).get(`/cars/properties/?${key}=${value}`);
+          response = await chai
+            .request(server)
+            .post('/cars/properties/')
+            .send({ [key]: value });
         });
 
         after(cleanDescribe);
@@ -141,8 +159,7 @@ describe('GetCarsFunctions', function () {
         });
 
         it('Object inside array contain basic properties', function () {
-          expect(response.body).to.contains.keys([
-            'isError']);
+          expect(response.body).to.contains.keys(['isError']);
         });
       };
     }
