@@ -20,7 +20,11 @@ Poucos detalhes foram dados sobre a forma para abordar o projeto. As únicas inf
 
 ## Como instalar
 
-* Copie o ssh do projeto `git@github.com:pauloricardoz/desafio-auto-trybe-back.git`
+Pre-requisitos para rodar o projeto: 
+- mongoDB
+- NPM
+
+Copie o ssh do projeto `git@github.com:pauloricardoz/desafio-auto-trybe-back.git`
 
 * Abra um terminal no seu computador e utilize os comandos a baixo na ordem que são apresentados:
 
@@ -28,6 +32,8 @@ Poucos detalhes foram dados sobre a forma para abordar o projeto. As únicas inf
   * `cd desafio-auto-trybe-back`
   * `npm install`
   * `npm start`
+
+  A aplicação está configurada para rodar na porta local 3000. Caso deseje utilizar outra porta utilize o arquivo `.env.example` para trocar para a porta desejada. Após a alteração renomeie o arquivo para `.env`
 
 ---
 
