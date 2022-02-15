@@ -87,7 +87,6 @@ describe('Car controller', function () {
       });
       it('brand', async function () {
         request.body = { brand: 'fiat' };
-        console.log(request);
         await carController.getByProperties(request, response);
 
         expect(carService.getByProperties.calledWith({ ...request.body })).to.be.equal(true);
