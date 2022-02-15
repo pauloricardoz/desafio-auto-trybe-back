@@ -10,7 +10,7 @@ const {
 const carRouter = Router();
 
 carRouter.get('/', getAll);
-carRouter.get('/properties', getByProperties);
+carRouter.post('/properties', getByProperties);
 carRouter.post('/', insertCar);
 carRouter.put('/', editCar);
 carRouter.delete('/', deleteCar);
