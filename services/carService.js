@@ -5,10 +5,11 @@ const { isInvalidVehicleProperties, haveAllProperties } = require('./utils');
 const getAll = async () => carModel.getAll();
 
 const insertCar = async (car) => {
-  if (isInvalidVehicleProperties(car)) {
-    return { isError: true };
+  const isInvalidVehiclePropertiesState = isInvalidVehicleProperties(car);
+  if (isInvalidVehiclePropertiesState) {
+    return { isError: true, ...isInvalidVehiclePropertiesState };
   }
-  if (!haveAllProperties(car)) return { isError: true };
+  if (!haveAllProperties(car)) return { isError: true, message: 'Não tem todas as propriedades' };
   const insertedCar = await carModel.insertCar({ ...car });
   return { ...car, id: insertedCar.insertedId };
 };
@@ -35,8 +36,6 @@ const deleteCar = async (id) => {
 
 const getByProperties = async (car) => {
   const allPropertiesValid = isInvalidVehicleProperties(car);
-  console.log(allPropertiesValid);
-  console.log('allPropertiesValid', allPropertiesValid, car);
   if (allPropertiesValid) {
     return { isError: true };
   }
