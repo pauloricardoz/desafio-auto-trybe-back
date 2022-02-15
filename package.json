@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --runInBand",
     "start": "node index.js",
-    "test:mocha": "nyc --all --include models --include services --include controllers mocha test/unit/*.js --exit",
+    "test:unit": "mocha tests/*.js --watch --recursive",
+    "test:mocha": "nyc --all --include models --include services --include controllers mocha tests/*.js --exit",
     "tdd": "mocha ./tests/**/*$NAME*.test.js --watch --recursive --timeout 10000",
     "test:integration": "mocha ./test-integration/**/*$NAME*.test.js --watch --recursive --timeout 10000",
     "dev:test:coverage:json": "nyc --all --reporter=json-summary mocha ./test*/**/*$NAME*.test.js --exit",
